@@ -254,12 +254,13 @@ section[id],article[id],[data-crumb]{scroll-margin-top:4.5rem}
   </button>
   <div class="trail out" id="trail" aria-live="off"><span class="p" id="trailP"></span><span class="sep" id="trailSep">›</span><span class="c" id="trailC"></span></div>
   <div class="hud-r">
-    <button class="menu-btn snd-btn" id="sndBtn" type="button" aria-pressed="false" aria-label="Ativar sons de ambiente" title="Sons de ambiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="on" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/><path class="off" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg></button>
     <div class="ver" role="group" aria-label="Versão do site">
       <button type="button" data-v="1" aria-pressed="false"><span class="full">Versão </span><span class="short">V</span>1</button>
       <button type="button" data-v="2" aria-pressed="false"><span class="full">Versão </span><span class="short">V</span>2</button>
       <button type="button" data-v="3" aria-pressed="true"><span class="full">Versão </span><span class="short">V</span>3</button>
     </div>
+    <button class="menu-btn snd-btn" id="sndBtn" type="button" aria-pressed="false" aria-label="Ativar sons de ambiente" title="Sons de ambiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="on" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/><path class="off" d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg></button>
+    <button class="menu-btn fs-btn" id="fsBtn" type="button" aria-pressed="false" aria-label="Tela cheia" title="Tela cheia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="enter" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><path class="exit" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
     <button class="menu-btn map-btn" id="mapBtn" type="button" aria-label="Abrir mapas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span class="lbl">Mapas</span></button>
   </div>
 </div>
@@ -586,8 +587,6 @@ html[data-ver="3"] .temp-head .th-grp{display:block;text-align:center}
 html[data-ver="3"] #s-clima .dice.cols thead th:not(:first-child){text-align:center}
 /* mapas: sem ampliar, com marcadores */
 html[data-ver="3"] .mapbox{overflow:visible}
-html[data-ver="3"] .mapbox button[data-zoom]{cursor:default}
-html[data-ver="3"] .mapbox button[data-zoom]::after{display:none}
 html[data-ver="3"] #s-mapa-cidade .mapbox{margin-inline:auto}
 .pins{position:absolute;top:0;left:0;width:100%;pointer-events:none}
 .pin{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;padding:0;border:2px solid transparent;border-radius:50%;background:none;cursor:pointer;pointer-events:auto;transition:border-color .2s,box-shadow .2s}
@@ -784,6 +783,86 @@ html[data-ver="3"] #s-personagens-fundacao h4.minor+p{margin-top:0}
 html[data-ver="3"] #s-fundacao .ficha{background:none;color:inherit;padding:1.2rem 0 0;border:0;border-top:1px solid var(--line);box-shadow:none;border-radius:0}
 html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
 
+/* ===== ajustes de 25/11 ===== */
+/* web: letras maiores (como zoom de 133%) e margens laterais menores */
+@media (min-width:1100px){
+  html[data-ver="3"]{font-size:clamp(16px,1.42vw,21px)}
+  html[data-ver="3"] .hud .menu-btn{font-size:15px}
+  html[data-ver="3"] .hud .ver button{font-size:13px}
+}
+/* botão de tela cheia */
+.fs-btn{opacity:.72;width:44px;padding:0;justify-content:center}
+.fs-btn:hover{opacity:1}
+.fs-btn svg{width:19px;height:19px}
+.fs-btn .exit{display:none}
+.fs-btn[aria-pressed="true"] .enter{display:none}
+.fs-btn[aria-pressed="true"] .exit{display:inline}
+.fs-btn[hidden]{display:none!important}
+html:not([data-ver="3"]) .fs-btn{display:none}
+@media (max-width:899px),(pointer:coarse){.fs-btn{display:none!important}}
+/* opções das tabelas de dados um pouco maiores */
+html[data-ver="3"] .dice table{font-size:1.2rem}
+html[data-ver="3"] .dice td q{font-size:1em}
+html[data-ver="3"] .dice tbody th{font-size:1.65rem}
+html[data-ver="3"] .dice.cols tbody th{font-size:1.1rem}
+/* dois dados (chuva) e d20 com percepção (cogumelos) */
+.roll-set{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem}
+.roll-hint{font:500 .78rem/1.3 var(--label);letter-spacing:.08em;text-transform:none;color:var(--muted)}
+.perc{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem .9rem;text-transform:none;letter-spacing:.06em;color:var(--text);font:500 .95rem/1.2 var(--label)}
+.perc label{display:inline-flex;align-items:center;gap:.5rem;cursor:pointer}
+.perc input[type=number]{width:4.2rem;height:2.2rem;padding:0 .5rem;border:1px solid var(--line);border-radius:4px;background:rgba(255,255,255,.05);color:var(--text);font:600 1.05rem/1 var(--label);text-align:center}
+.perc input[type=checkbox]{width:1.05rem;height:1.05rem;accent-color:var(--ember)}
+.perc-out{display:block;padding:.75rem 1.1rem;border-bottom:1px solid var(--line);font:500 1.05rem/1.4 var(--body);color:var(--text)}
+.perc-out:empty{display:none}
+.perc-out b{color:var(--gold);font-family:var(--label);letter-spacing:.06em}
+/* notas de rodapé em balão */
+sup.fn{font-size:.72em;line-height:0}
+sup.fn button{display:inline-grid;place-items:center;min-width:1.45em;height:1.45em;margin:0 .1em;padding:0 .25em;border:1px solid rgba(230,182,85,.6);border-radius:999px;background:rgba(230,182,85,.1);color:var(--gold);font:600 1em/1 var(--label);cursor:pointer;vertical-align:.2em;transition:background .15s}
+sup.fn button:hover,sup.fn button[aria-expanded="true"]{background:rgba(230,182,85,.3)}
+.fn-pop{position:fixed;z-index:70;width:min(24rem,calc(100vw - 32px));padding:.9rem 1.1rem;border:1px solid rgba(230,182,85,.6);border-radius:5px;background:rgba(12,10,20,.97);color:var(--text);font:400 1rem/1.55 var(--body);box-shadow:0 18px 40px -12px #000;opacity:0;visibility:hidden;transition:opacity .15s}
+.fn-pop.on{opacity:1;visibility:visible}
+.fn-pop b{display:block;margin-bottom:.3rem;font:600 .8rem/1.2 var(--label);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+/* fichas sem imagem e imagens das criaturas fixas enquanto o texto rola */
+@media (min-width:900px){
+  html[data-ver="3"] #s-npcs article>.prose>.ficha,html[data-ver="3"] #s-personagens-fundacao .prose>.ficha{position:sticky;top:6.5rem;grid-row:2/span 40;align-self:start}
+  html[data-ver="3"] #s-criaturas .beast{align-items:start}
+  html[data-ver="3"] #s-criaturas .beast>.art{position:sticky;top:6.5rem}
+}
+/* celular: imagem depois do texto */
+@media (max-width:899px){
+  html[data-ver="3"] :is(#s-npcs,#s-bruxas) .split>figure{order:2}
+  html[data-ver="3"] #s-criaturas .beast>.art{order:2}
+}
+/* graus da Niobse: cada grau maior que o anterior */
+@media (min-width:960px){
+  html[data-ver="3"] .grades{grid-template-columns:1fr 1.1fr 1.22fr 1.36fr;align-items:end}
+  html[data-ver="3"] .grades .gem:nth-child(n){margin-top:0}
+}
+/* mapa ampliado: números continuam clicáveis */
+.lightbox.zoom .lb-wrap .pins .pin{cursor:pointer}
+.lightbox.zoom .lb-wrap img{cursor:zoom-out}
+
+/* ===== ajustes de 25/11 (2) ===== */
+html,body{overflow-x:clip}
+main,.cover,.hud{touch-action:pan-y pinch-zoom}
+.owl-mini{display:none}
+html[data-ver="3"] .mist-fig{display:none!important}
+html[data-ver="3"] #s-misterios .prose>.mist-fig2{display:block;width:min(100%,32rem);margin:1.8rem auto 0;justify-self:center}
+@media (max-width:899px){
+  html[data-ver="3"] .rosto .sheet>.owl-box{display:none}
+  html[data-ver="3"] .owl-mini{display:block;width:min(46vw,11rem);height:auto;margin:.4rem auto .2rem}
+}
+@media (max-width:700px){
+  /* imagens no meio do texto: mesmo respiro em cima e embaixo */
+  #s-serra .split .serra-fig,#s-serra .split .serra-fig2,html[data-ver="3"] .ff-text .ff-float,.lenda-fig,html[data-ver="3"] #s-personagens-fundacao .prose>.pf-fig{margin:2rem 0!important}
+  /* botões de dados centralizados */
+  .dice-head{flex-direction:column;justify-content:center;text-align:center}
+  .roll-set,.perc{justify-content:center}
+  /* aberturas: criatura e coruja inteiras à vista */
+  html[data-ver="3"] #s-criaturas .opener .bg.caboclo-bg{background-size:175% auto;background-position:56% 22%}
+  html[data-ver="3"] .opener .bg.owl-bg{background-size:118% auto;background-position:38% 55%}
+}
+
 @media (prefers-reduced-motion:reduce){.letters i,.r-cue::after{animation:none!important}}
 </style>
 
@@ -795,6 +874,7 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
     <div class="r-left">
       <div class="letters r-letters" role="img" aria-label="Os Mistérios e Lendas de Thomária"><i class="st" style="left:0.35%;top:27.24%;width:22.21%;height:72.41%;background-size:1023.83% 100.00%;background-position:49.692% 0;--a:-10.6%;--r:2.2deg;animation-duration:6.42s;animation-delay:-4.77s"></i><i class="st" style="left:15.30%;top:14.14%;width:5.64%;height:16.55%;background-size:4032.65% 437.50%;background-position:41.152% 0;--a:-11.7%;--r:-0.2deg;animation-duration:7.10s;animation-delay:-0.17s"></i><i class="st" style="left:20.48%;top:2.07%;width:14.04%;height:33.79%;background-size:1619.67% 214.29%;background-position:11.003% 0;--a:-13.5%;--r:-1.9deg;animation-duration:6.07s;animation-delay:-5.41s"></i><i class="st" style="left:33.37%;top:7.93%;width:23.82%;height:20.69%;background-size:954.59% 350.00%;background-position:32.900% 0;--a:-9.2%;--r:0.4deg;animation-duration:4.54s;animation-delay:-3.26s"></i><i class="st" style="left:33.83%;top:2.07%;width:13.35%;height:21.03%;background-size:1703.45% 344.26%;background-position:17.742% 0;--a:-5.1%;--r:2.1deg;animation-duration:4.42s;animation-delay:-1.68s"></i><i class="st" style="left:46.61%;top:7.59%;width:5.98%;height:12.76%;background-size:3800.00% 567.57%;background-position:27.339% 0;--a:-11.9%;--r:-1.8deg;animation-duration:4.21s;animation-delay:-4.78s"></i><i class="st" style="left:57.31%;top:0.00%;width:23.01%;height:45.52%;background-size:988.00% 159.09%;background-position:0.000% 0;--a:-10.6%;--r:1.9deg;animation-duration:4.08s;animation-delay:-0.01s"></i><i class="st" style="left:66.97%;top:32.07%;width:18.64%;height:64.48%;background-size:1219.75% 112.30%;background-position:59.702% 0;--a:-6.9%;--r:1.9deg;animation-duration:4.42s;animation-delay:-5.89s"></i><i class="st" style="left:68.01%;top:3.10%;width:4.03%;height:20.34%;background-size:5645.71% 355.93%;background-position:23.184% 0;--a:-7.6%;--r:0.9deg;animation-duration:7.25s;animation-delay:-3.24s"></i><i class="st" style="left:78.83%;top:6.55%;width:3.80%;height:21.72%;background-size:5987.88% 333.33%;background-position:25.167% 0;--a:-6.8%;--r:2.3deg;animation-duration:7.18s;animation-delay:-4.14s"></i><i class="st" style="left:82.16%;top:14.83%;width:4.14%;height:14.14%;background-size:5488.89% 512.20%;background-position:43.608% 0;--a:-13.0%;--r:-1.7deg;animation-duration:4.74s;animation-delay:-2.17s"></i><i style="left:11.28%;top:39.31%;width:17.26%;height:55.86%;background-size:1317.33% 129.63%;background-position:68.401% 0;--a:-5.0%;--r:0.5deg;animation-duration:3.85s;animation-delay:-1.81s"></i><i style="left:27.39%;top:41.38%;width:15.07%;height:47.24%;background-size:1508.40% 153.28%;background-position:83.415% 0;--a:-4.0%;--r:-1.0deg;animation-duration:6.18s;animation-delay:-2.03s"></i><i style="left:42.12%;top:41.38%;width:15.07%;height:52.41%;background-size:1508.40% 138.16%;background-position:90.732% 0;--a:-9.7%;--r:-0.1deg;animation-duration:5.43s;animation-delay:-1.89s"></i><i style="left:56.73%;top:41.72%;width:14.38%;height:55.52%;background-size:1580.80% 130.43%;background-position:97.731% 0;--a:-8.9%;--r:-2.4deg;animation-duration:3.82s;animation-delay:-5.85s"></i><i style="left:81.93%;top:42.41%;width:3.91%;height:46.90%;background-size:5811.76% 154.41%;background-position:99.794% 0;--a:-9.2%;--r:1.4deg;animation-duration:6.81s;animation-delay:-0.11s"></i><i style="left:84.35%;top:40.00%;width:15.19%;height:56.55%;background-size:1496.97% 128.05%;background-position:76.085% 0;--a:-6.6%;--r:-2.3deg;animation-duration:5.80s;animation-delay:-0.05s"></i></div>
       <p class="r-sub">Cenário de RPG inspirado em São Thomé das Letras</p>
+      <img class="owl-mini" src="img/coruja.webp" alt="" aria-hidden="true" decoding="async">
       <div class="r-actions">
         <button class="r-btn" type="button" data-open="index"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h11M4 17h16"/></svg>Índice</button>
         <button class="r-btn" type="button" data-open="maps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>Mapas</button>
@@ -1039,8 +1119,8 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
           <li><b>Primavera:</b> jogue 1d6</li>
         </ul>
       </div>
-      <div class="dice rv" data-die="6">
-        <div class="dice-head"><span>Tabela: rolagem de chuvas</span><button class="roll" type="button">Rolar d6</button></div>
+      <div class="dice rv" id="chuvaDice">
+        <div class="dice-head"><span>Tabela: rolagem de chuvas</span><span class="roll-set"><button class="roll" type="button" data-k="0">Rolar d6</button><button class="roll" type="button" data-k="1">Rolar d6</button></span></div>
         <div class="tbl"><table>
           <tr><th>1-3</th><td>Sem chuva</td></tr>
           <tr><th>4</th><td>Garoa leve</td></tr>
@@ -1129,8 +1209,9 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
         <p>Os personagens devem gastar no mínimo 1 hora procurando e realizar um teste de Percepção<sup>4</sup>, conforme a tabela abaixo. Caso tenha chovido forte por três dias consecutivos, os personagens terão vantagem no teste.</p>
         <p>Após uma hora de busca em um mesmo pasto, não é possível encontrar mais cogumelos naquele local.</p>
       </div>
-      <div class="dice cols rv">
-        <div class="dice-head"><span>Tabela: Encontrando Cogumelos Mágicos</span></div>
+      <div class="dice cols rv" id="cogDice">
+        <div class="dice-head"><span>Tabela: Encontrando Cogumelos Mágicos</span><span class="perc"><label>Percepção <input type="number" id="percMod" value="0" min="-5" max="20" step="1" inputmode="numeric"></label><label><input type="checkbox" id="percAdv"> Vantagem</label><button class="roll" type="button" id="percRoll">Rolar d20</button></span></div>
+        <div class="perc-out" id="percOut" aria-live="polite"></div>
         <div class="tbl"><table>
           <thead><tr><th>Teste de Percepção</th><th>Resultado</th></tr></thead>
           <tr><th>1-10</th><td>Não encontram nada.</td></tr>
@@ -2290,7 +2371,7 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
     im.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openImg(im); } });
   });
   doc.getElementById('mapBtn').addEventListener('click',function(){ openLb('regiao'); });
-  [].forEach.call(doc.querySelectorAll('[data-zoom]'),function(b){ b.addEventListener('click',function(){ if(ver()==='3') return; openLb(b.getAttribute('data-zoom')); }); });
+  [].forEach.call(doc.querySelectorAll('[data-zoom]'),function(b){ b.addEventListener('click',function(){ openLb(b.getAttribute('data-zoom')); }); });
   /* marcadores clicáveis nos mapas (v3) */
   var MK={"regiao": [["1", 16.15, 59.11], ["2", 16.12, 55.65], ["2", 12.81, 62.48], ["3", 6.35, 60.34], ["4", 30.73, 61.2], ["5", 19.46, 51.32], ["6", 17.62, 50.09], ["7", 29.12, 59.97], ["8", 22.62, 53.55], ["9", 29.08, 64.57], ["10", 15.96, 82.29], ["11", 25.92, 46.86], ["12", 33.96, 61.29], ["13", 9.58, 75.68], ["14", 30.85, 52.37], ["15", 38.96, 46.81], ["16", 43.81, 52.37], ["17", 43.88, 47.91], ["18", 27.77, 19.44], ["19", 38.92, 11.52], ["20", 35.5, 90.85], ["21", 58.35, 22.4], ["22", 68.08, 24.64], ["23", 59.88, 17.03], ["24", 61.54, 15.76], ["25", 55.04, 13.89], ["26", 73.23, 19.17], ["27", 89.35, 19.26], ["28", 89.31, 32.56], ["29", 64.85, 6.92]], "cidade": [["1", 33.94, 67.62], ["2", 36.49, 66.34], ["3", 33.94, 62.59], ["4", 38.95, 65.14], ["5", 31.39, 61.32], ["6", 31.39, 66.34], ["7", 36.49, 58.85], ["8", 41.59, 61.32], ["9", 54.16, 62.59], ["10", 46.6, 68.82], ["11", 31.48, 48.95], ["12", 36.49, 46.55], ["13", 56.63, 36.51], ["14", 18.65, 22.79], ["14", 13.64, 79.91], ["15", 61.85, 29.01], ["16", 89.59, 25.34], ["17", 74.38, 52.7], ["18", 61.89, 78.79], ["19", 49.07, 89.96], ["20", 51.61, 83.73]]};
   var AR={regiao:1300/1098,cidade:1177/1334};
@@ -2303,7 +2384,7 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
   function closePins(){ [].forEach.call(doc.querySelectorAll('.pin.open'),function(x){ x.classList.remove('open'); }); }
   function makePins(k,extra){
     var box=doc.createElement('div'); box.className='pins'+(extra||''); box.style.aspectRatio=AR[k]; box.setAttribute('data-map',k);
-    box.addEventListener('mouseleave',function(){ closePins(); });
+    box.addEventListener('pointerleave',function(e){ if(e.pointerType==='mouse') closePins(); });
     (MK[k]||[]).forEach(function(m){
       var nm=NAMES[k][m[0]]||['',''];
       var pin=doc.createElement('button'); pin.type='button'; pin.className='pin'+(m[1]>68?' tr':(m[1]<32?' tl':''))+(m[2]<30?' below':''); pin.style.left=m[1]+'%'; pin.style.top=m[2]+'%';
@@ -2311,7 +2392,7 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
       pin.innerHTML='<span class="tip"><b>'+m[0]+' · '+esc(nm[0])+'</b><span>'+esc(nm[1])+'</span></span>';
       function toggle(e){ e.preventDefault(); e.stopPropagation(); var was=pin.classList.contains('open'); closePins(); if(!was) pin.classList.add('open'); }
       pin.addEventListener('click',toggle);
-      pin.addEventListener('mouseenter',function(){ closePins(); pin.classList.add('open'); });
+      pin.addEventListener('pointerenter',function(e){ if(e.pointerType!=='mouse') return; closePins(); pin.classList.add('open'); });
       box.appendChild(pin);
     });
     return box;
@@ -2341,7 +2422,7 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
   lbImg.addEventListener('click',function(e){
     e.stopPropagation();
     var r=lbImg.getBoundingClientRect(), fx=(e.clientX-r.left)/r.width, fy=(e.clientY-r.top)/r.height;
-    lb.classList.toggle('zoom');
+    lb.classList.toggle('zoom'); closePins(); sizePins();
     if(lb.classList.contains('zoom')){ stage.scrollLeft=fx*lbImg.offsetWidth-stage.clientWidth/2; stage.scrollTop=fy*lbImg.offsetHeight-stage.clientHeight/2; }
   });
   stage.addEventListener('click',function(e){ if(e.target===stage) closeLb(); });
@@ -2471,6 +2552,153 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
   window.addEventListener('load',function(){ sizeCanvases(); onScroll(); });
 })();
 </script>
+<script>
+(function(){
+  var doc=document, root=doc.documentElement;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function v3(){ return root.getAttribute('data-ver')==='3'; }
+  function d(n){ return 1+Math.floor(Math.random()*n); }
+  function esc(t){ return String(t).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function spin(btn,out,die,done){
+    if(reduce){ var n=d(die); out.textContent=n; done(n); return; }
+    var k=0; btn.classList.remove('spin'); void btn.offsetWidth; btn.classList.add('spin');
+    var t=setInterval(function(){ out.textContent=d(die); if(++k>=8){ clearInterval(t); var n=d(die); out.textContent=n; done(n); } },60);
+  }
+  function rowsOf(box){
+    var rows=[].slice.call(box.querySelectorAll('tbody tr')).filter(function(r){ return r.querySelector('th'); });
+    return rows.map(function(r){
+      var t=r.querySelector('th').textContent.trim(), m=t.match(/^(\d+)(?:\s*[-–]\s*(\d+))?\s*(\+)?/);
+      return {el:r, lo:m?+m[1]:0, hi:m?(m[3]?Infinity:(m[2]?+m[2]:+m[1])):0};
+    });
+  }
+
+  /* ---------- tela cheia ---------- */
+  var fsBtn=doc.getElementById('fsBtn');
+  var canFs=!!(doc.fullscreenEnabled||doc.webkitFullscreenEnabled);
+  function isFs(){ return !!(doc.fullscreenElement||doc.webkitFullscreenElement); }
+  function enterFs(){ try{ var p=(root.requestFullscreen||root.webkitRequestFullscreen).call(root); if(p&&p.catch) p.catch(function(){}); }catch(e){} }
+  function exitFs(){ try{ var p=(doc.exitFullscreen||doc.webkitExitFullscreen).call(doc); if(p&&p.catch) p.catch(function(){}); }catch(e){} }
+  function syncFs(){
+    if(!fsBtn) return; var on=isFs();
+    fsBtn.setAttribute('aria-pressed',on?'true':'false');
+    fsBtn.setAttribute('aria-label',on?'Sair da tela cheia':'Tela cheia'); fsBtn.title=on?'Sair da tela cheia':'Tela cheia';
+  }
+  if(fsBtn){
+    if(!canFs) fsBtn.hidden=true;
+    fsBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(isFs()){ try{ sessionStorage.setItem('thomaria-fs','off'); }catch(_){} exitFs(); } else enterFs();
+    });
+    doc.addEventListener('fullscreenchange',syncFs); doc.addEventListener('webkitfullscreenchange',syncFs); syncFs();
+    /* no computador, o primeiro clique ou tecla já abre em tela cheia */
+    var desk=window.matchMedia&&matchMedia('(pointer:fine) and (min-width:900px)').matches, off=false;
+    try{ off=sessionStorage.getItem('thomaria-fs')==='off'; }catch(_){}
+    if(canFs&&desk&&!off){
+      var armFs=function(e){
+        if(e.type==='keydown'&&(e.key==='Escape'||e.key==='Tab'||e.key==='F11')) return;
+        ['pointerdown','keydown'].forEach(function(t){ doc.removeEventListener(t,armFs,true); });
+        if(e.target&&e.target.closest&&e.target.closest('#fsBtn')) return;
+        if(v3()&&!isFs()) enterFs();
+      };
+      ['pointerdown','keydown'].forEach(function(t){ doc.addEventListener(t,armFs,true); });
+    }
+  }
+
+  /* ---------- chuva: dois d6 ---------- */
+  var chuva=doc.getElementById('chuvaDice');
+  if(chuva){
+    var cr=rowsOf(chuva), vals=[null,null];
+    [].forEach.call(chuva.querySelectorAll('.roll'),function(btn){
+      var k=+btn.getAttribute('data-k');
+      btn.innerHTML='Rolar d6 <output aria-live="polite">?</output>';
+      var out=btn.querySelector('output');
+      btn.addEventListener('click',function(){
+        spin(btn,out,6,function(n){
+          vals[k]=n;
+          cr.forEach(function(r){ r.el.classList.toggle('hit',vals.some(function(v){ return v!==null&&v>=r.lo&&v<=r.hi; })); });
+        });
+      });
+    });
+  }
+
+  /* ---------- cogumelos: d20 + percepção ---------- */
+  var cog=doc.getElementById('cogDice'), pr=doc.getElementById('percRoll');
+  if(cog&&pr){
+    var rr=rowsOf(cog), pOut=doc.getElementById('percOut'), mod=doc.getElementById('percMod'), adv=doc.getElementById('percAdv');
+    pr.innerHTML='Rolar d20 <output aria-live="off">?</output>';
+    var o=pr.querySelector('output');
+    [mod,adv].forEach(function(x){ x.addEventListener('click',function(e){ e.stopPropagation(); }); });
+    pr.addEventListener('click',function(){
+      spin(pr,o,20,function(a){
+        var b=adv.checked?d(20):null, top=b===null?a:Math.max(a,b);
+        var m=parseInt(mod.value,10); if(isNaN(m)) m=0;
+        var tot=top+m, hitRow=null;
+        rr.forEach(function(r){ var h=tot>=r.lo&&tot<=r.hi; if(tot<1&&r===rr[0]) h=true; r.el.classList.toggle('hit',h); if(h) hitRow=r; });
+        o.textContent=top;
+        var roll=b===null?('d20 = '+a):('d20 com vantagem = '+a+' e '+b+' → '+top);
+        pOut.innerHTML='<b>'+roll+(m?(' '+(m>0?'+ ':'− ')+Math.abs(m)):'')+' = '+tot+'</b>'+(hitRow?' · '+esc(hitRow.el.querySelector('td').textContent):'');
+      });
+    });
+  }
+
+  /* ---------- notas de rodapé em balão ---------- */
+  var notes={};
+  [].forEach.call(doc.querySelectorAll('p.note'),function(p){
+    var s=p.firstElementChild; if(!s||s.tagName!=='SUP') return;
+    var n=s.textContent.trim(), c=p.cloneNode(true); c.removeChild(c.firstElementChild);
+    notes[n]=c.innerHTML.trim();
+  });
+  var pop=doc.createElement('div'); pop.className='fn-pop'; pop.setAttribute('role','tooltip'); pop.id='fnPop'; doc.body.appendChild(pop);
+  var cur=null, pinned=false, hideT=null;
+  function place(){
+    if(!cur) return;
+    var r=cur.getBoundingClientRect(), w=pop.offsetWidth, h=pop.offsetHeight, vw=doc.documentElement.clientWidth, vh=window.innerHeight;
+    var x=Math.min(Math.max(16,r.left+r.width/2-w/2),vw-w-16), y=r.bottom+10;
+    if(y+h>vh-12&&r.top-h-10>12) y=r.top-h-10;
+    pop.style.left=x+'px'; pop.style.top=y+'px';
+  }
+  function show(btn,pin){
+    clearTimeout(hideT);
+    if(cur&&cur!==btn) cur.setAttribute('aria-expanded','false');
+    cur=btn; pinned=!!pin;
+    pop.innerHTML='<b>Nota '+esc(btn.getAttribute('data-n'))+'</b>'+notes[btn.getAttribute('data-n')];
+    btn.setAttribute('aria-expanded','true'); pop.classList.add('on'); place();
+  }
+  function hide(){ if(cur) cur.setAttribute('aria-expanded','false'); cur=null; pinned=false; pop.classList.remove('on'); }
+  [].forEach.call(doc.querySelectorAll('sup'),function(s){
+    if(s.closest('.note')) return;
+    var n=s.textContent.trim(); if(!notes[n]) return;
+    s.classList.add('fn'); s.innerHTML='';
+    var b=doc.createElement('button'); b.type='button'; b.textContent=n; b.setAttribute('data-n',n);
+    b.setAttribute('aria-label','Nota '+n); b.setAttribute('aria-expanded','false'); b.setAttribute('aria-describedby','fnPop');
+    b.addEventListener('mouseenter',function(){ if(!pinned||cur!==b) show(b,false); });
+    b.addEventListener('mouseleave',function(){ if(!pinned){ hideT=setTimeout(hide,220); } });
+    b.addEventListener('click',function(e){ e.stopPropagation(); if(cur===b&&pinned) hide(); else show(b,true); });
+    s.appendChild(b);
+  });
+  pop.addEventListener('mouseenter',function(){ clearTimeout(hideT); });
+  pop.addEventListener('mouseleave',function(){ if(!pinned) hideT=setTimeout(hide,220); });
+  pop.addEventListener('click',function(e){ e.stopPropagation(); });
+  doc.addEventListener('click',function(){ if(cur) hide(); });
+  doc.addEventListener('keydown',function(e){ if(e.key==='Escape'&&cur) hide(); });
+  window.addEventListener('scroll',function(){ if(cur) place(); },{passive:true});
+  window.addEventListener('resize',function(){ if(cur) place(); });
+
+  /* ---------- graus da Niobse: cada um maior que o anterior ---------- */
+  function sizeGrades(){
+    [].forEach.call(doc.querySelectorAll('.grades'),function(g){
+      var gems=[].slice.call(g.querySelectorAll(':scope>.gem'));
+      gems.forEach(function(x){ x.style.minHeight=''; });
+      if(!v3()||!window.matchMedia('(min-width:960px)').matches) return;
+      var step=parseFloat(getComputedStyle(root).fontSize)*2.6, prev=0;
+      gems.forEach(function(x){ var h=Math.max(x.offsetHeight,prev+step); x.style.minHeight=h+'px'; prev=h; });
+    });
+  }
+  sizeGrades(); window.addEventListener('load',sizeGrades); window.addEventListener('resize',sizeGrades);
+  if(doc.fonts&&doc.fonts.ready) doc.fonts.ready.then(sizeGrades);
+  new MutationObserver(function(){ sizeGrades(); }).observe(root,{attributes:true,attributeFilter:['data-ver']});
+})();
+</script>
 
 <script>
 (function(){
@@ -2563,14 +2791,48 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
       if(Math.random()<.45){ var s2=t+d+.15, src=ac.createBufferSource(), lp=ac.createBiquadFilter(), gg=ac.createGain(); src.buffer=noiseBuf(.4); lp.type='lowpass'; lp.frequency.value=260; env(gg,s2,.005,.03,.35,0.35); src.connect(lp); lp.connect(gg); out(gg,.9); src.start(s2); }
     }
   };
-  var bag=['wolf','steps','owl','door','wolf','owl','steps','door'];
-  var cycle=Math.floor(Math.random()*8);
+  /* variações de lobos e corujas */
+  function howl(t,base,dur,peak,wet,lp){
+    [1,2.01].forEach(function(m,k){
+      var o=ac.createOscillator(), f=ac.createBiquadFilter(), g=ac.createGain(), lfo=ac.createOscillator(), lg=ac.createGain(), last=g;
+      o.type='sawtooth'; f.type='bandpass'; f.frequency.value=base*2.6; f.Q.value=3;
+      var up=dur*.3;
+      o.frequency.setValueAtTime(base*.62*m,t); o.frequency.linearRampToValueAtTime(base*m,t+up); o.frequency.linearRampToValueAtTime(base*.94*m,t+dur*.68); o.frequency.linearRampToValueAtTime(base*.66*m,t+dur);
+      lfo.frequency.value=4.6+Math.random()*1.4; lg.gain.value=5*m; lfo.connect(lg); lg.connect(o.frequency);
+      env(g,t,up*.8,dur*.45,dur*.32,(k?0.36:1)*peak); o.connect(f); f.connect(g);
+      if(lp){ var l=ac.createBiquadFilter(); l.type='lowpass'; l.frequency.value=lp; g.connect(l); last=l; }
+      out(last,wet); o.start(t); lfo.start(t); o.stop(t+dur+.3); lfo.stop(t+dur+.3);
+    });
+  }
+  function hoot(t,f0,f1,len,peak,wet){
+    var o=ac.createOscillator(), g=ac.createGain(), lp=ac.createBiquadFilter();
+    o.type='sine'; o.frequency.setValueAtTime(f0,t); o.frequency.exponentialRampToValueAtTime(f1,t+len);
+    lp.type='lowpass'; lp.frequency.value=1400;
+    env(g,t,.05,len*.5,len*.55,peak); o.connect(g); g.connect(lp); out(lp,wet); o.start(t); o.stop(t+len+.4);
+  }
+  S.wolfLong=function(t){ howl(t,560,4.6,0.07,1.4); };
+  S.wolfPair=function(t){ howl(t,520,4.2,0.06,1.4); howl(t+1.6,690,3.6,0.04,1.6); };
+  S.wolfFar=function(t){ howl(t,470,5.4,0.045,2.2,1100); if(Math.random()<.6) howl(t+5.8,500,3.2,0.03,2.2,1000); };
+  S.wolfShort=function(t){ howl(t,600,1.8,0.05,1.3); howl(t+2.2,640,1.6,0.045,1.3); howl(t+4.1,580,3.4,0.06,1.4); };
+  S.owlHoot=function(t){ hoot(t,410,355,.32,0.09,1.2); hoot(t+.55,410,350,.55,0.09,1.2); hoot(t+1.35,400,345,.7,0.08,1.2); };
+  S.owlPair=function(t){ hoot(t,330,290,.45,0.08,1.3); hoot(t+.7,330,285,.6,0.08,1.3); hoot(t+2.6,470,420,.35,0.06,1.5); hoot(t+3.1,465,410,.5,0.06,1.5); };
+  S.owlTrill=function(t){ /* corujinha-do-mato: série rápida que acelera e cai */
+    var n=12+Math.floor(Math.random()*6), s=t;
+    for(var i=0;i<n;i++){ var gap=.16-.07*(i/n), f=880-140*(i/n); hoot(s,f,f*.93,.07,0.05,1.1); s+=gap; }
+  };
+  S.owlScreech=function(t){ /* suindara: chiado rouco e longo */
+    var d=1.1+Math.random()*.5, n=ac.createBufferSource(), bp=ac.createBiquadFilter(), g=ac.createGain(), o=ac.createOscillator(), og=ac.createGain();
+    n.buffer=noiseBuf(d+.2); bp.type='bandpass'; bp.Q.value=5; bp.frequency.setValueAtTime(3200,t); bp.frequency.exponentialRampToValueAtTime(2300,t+d);
+    env(g,t,.12,d*.5,d*.4,0.11); n.connect(bp); bp.connect(g); out(g,1.6); n.start(t); n.stop(t+d+.2);
+    o.type='triangle'; o.frequency.setValueAtTime(2400,t); o.frequency.exponentialRampToValueAtTime(1800,t+d); env(og,t,.12,d*.5,d*.4,0.012); o.connect(og); out(og,1.2); o.start(t); o.stop(t+d+.2);
+  };
+  var bag=['owlHoot','wolfLong','owlTrill','wolfPair','owlScreech','wolfFar','owlPair','wolfShort'];
+  var cycle=Math.floor(Math.random()*bag.length);
   function schedule(first){
     if(!on) return;
-    var name=first?'owl':(bag[(cycle++)%bag.length]);
+    var name=first?'owlHoot':(bag[(cycle++)%bag.length]);
     S[name](ac.currentTime+.1);
-    if(Math.random()<.15){ var other=bag[Math.floor(Math.random()*bag.length)]; if(other!==name) S[other](ac.currentTime+5+Math.random()*4); }
-    timer=setTimeout(function(){ schedule(false); },(18+Math.random()*16)*1000);
+    timer=setTimeout(function(){ schedule(false); },(30+Math.random()*22)*1000);
   }
   var setSound;
   function _oldSetSound(v){
@@ -2579,7 +2841,12 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
     else { clearTimeout(timer); if(ac){ master.gain.cancelScheduledValues(ac.currentTime); master.gain.setTargetAtTime(0,ac.currentTime,.3); } }
   }
   var started=false;
-  function startAudio(){ if(!ac) initAudio(); ac.resume(); master.gain.cancelScheduledValues(ac.currentTime); master.gain.setTargetAtTime(.5,ac.currentTime,.8); clearTimeout(timer); started=true; schedule(true); }
+  var silent=null;
+  function unlockMobile(){
+    try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){}
+    try{ if(!silent){ silent=new Audio('data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA=='); silent.loop=true; silent.setAttribute('playsinline',''); } var pp=silent.play(); if(pp&&pp.catch) pp.catch(function(){}); }catch(e){}
+  }
+  function startAudio(){ unlockMobile(); if(!ac) initAudio(); ac.resume(); master.gain.cancelScheduledValues(ac.currentTime); master.gain.setTargetAtTime(.5,ac.currentTime,.8); clearTimeout(timer); started=true; schedule(true); }
   function paint(){ btn.setAttribute('aria-pressed',on?'true':'false'); btn.setAttribute('aria-label',on?'Silenciar sons de ambiente':'Ativar sons de ambiente'); }
   setSound=function(v){
     on=v; paint();
@@ -2593,8 +2860,14 @@ html[data-ver="3"] #s-fundacao .ficha dt{color:var(--gold)}
     if(pref!=='off'&&root.getAttribute('data-ver')!=='1'){
       on=true; paint();
       /* o navegador só libera som depois de um toque, clique ou tecla: começa no primeiro gesto */
-      var arm=function(e){ if(e.target&&e.target.closest&&e.target.closest('#sndBtn')) return; if(on&&!started&&root.getAttribute('data-ver')!=='1') startAudio(); ['pointerdown','keydown','touchstart'].forEach(function(t){ doc.removeEventListener(t,arm,true); }); };
-      ['pointerdown','keydown','touchstart'].forEach(function(t){ doc.addEventListener(t,arm,true); });
+      var EV=['pointerdown','pointerup','touchend','click','keydown'];
+      var arm=function(e){
+        if(e.target&&e.target.closest&&e.target.closest('#sndBtn')) return;
+        if(!on||root.getAttribute('data-ver')==='1'){ EV.forEach(function(t){ doc.removeEventListener(t,arm,true); }); return; }
+        if(!started) startAudio(); else { unlockMobile(); ac.resume(); }
+        if(ac&&ac.state==='running') EV.forEach(function(t){ doc.removeEventListener(t,arm,true); });
+      };
+      EV.forEach(function(t){ doc.addEventListener(t,arm,true); });
     }
   }
   [].forEach.call(doc.querySelectorAll('.ver button'),function(b){ b.addEventListener('click',function(){ if(b.getAttribute('data-v')==='1'&&on) setSound(false); }); });
